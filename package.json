@@ -5,6 +5,7 @@
     "chrome-launcher": "^1.1.0",
     "cssstats": "^4.0.5",
     "get-css": "^4.0.3",
-    "lighthouse": "^11.5.0"
+    "lighthouse": "^11.5.0",
+    "yellowlabtools": "^3.0.1"
   }
 }
