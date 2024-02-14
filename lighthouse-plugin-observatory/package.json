@@ -1,0 +1,11 @@
+{
+  "name": "lighthouse-plugin-observatory",
+  "type": "module",
+  "main": "plugin.js",
+  "peerDependencies": {
+    "lighthouse": "^11.5.0"
+  },
+  "devDependencies": {
+    "lighthouse": "^11.5.0"
+  }
+}

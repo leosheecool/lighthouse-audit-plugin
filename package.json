@@ -1,0 +1,10 @@
+{
+  "type": "module",
+  "dependencies": {
+    "axios": "^1.6.7",
+    "chrome-launcher": "^1.1.0",
+    "cssstats": "^4.0.5",
+    "get-css": "^4.0.3",
+    "lighthouse": "^11.5.0"
+  }
+}
