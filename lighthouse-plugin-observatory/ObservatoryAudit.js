@@ -17,10 +17,12 @@ class ObservatoryAudit extends Audit {
   static async audit(artifacts) {
     const res = await getObservatoryScanResults(artifacts.URL.mainDocumentUrl);
 
-    let score = res.score / 100;
+    console.log("res", res);
+    let score = res.reduce((a, b) => a + (b.pass ? 1 : 0), 0) / res.length;
     if (score > 1) score = 1;
+    console.log("score", score);
 
-    const auditResult = res.warnings.map((test) => {
+    const auditResult = res.map((test) => {
       return {
         id: test.name,
         title: test.score_description,
