@@ -11,7 +11,7 @@ export default {
     ...Array.from({ length: await generateAudits() })
       .fill(0)
       .map((_, i) => ({
-        path: `lighthouse-plugin-observatory/audits/audits-observatory-${i}.js`
+        path: `lighthouse-plugin-observatory/audits/observatory-audit-${i}.js`
       }))
   ],
 
@@ -26,7 +26,7 @@ export default {
         weight: 1,
         group: "observatoryOverallScore"
       },
-      ...Array.from({ length: global.audits.observatoryNb })
+      ...Array.from({ length: global.audits.observatoryTotal })
         .fill(0)
         .map((_, i) => ({
           id: `observatory-result-${i}`,

@@ -1,5 +1,7 @@
 import fs from "fs/promises";
 import getYellowLabsResult from "./getYellowLabsResult.js";
+import generateAuditFiles from "../../lib/generateAuditFiles.js";
+import ensureDirectoryExistence from "../../lib/file.js";
 
 const getScore = (rule) => {
   if (
@@ -66,22 +68,12 @@ const createAuditsFile = (rule, index) => {
 };
 
 const generateYellowLabsAudits = async () => {
-  console.log("Running YellowLabs audits");
-  const res = await getYellowLabsResult(process.argv[2]);
-
-  const files = res.map((rule, i) => createAuditsFile(rule, i));
-
-  const promiseArray = files.map(async (file, i) =>
-    fs.writeFile(
-      `lighthouse-plugin-cssstats/audits/audits-yellowLabs-${i}.js`,
-      file
-    )
+  return generateAuditFiles(
+    getYellowLabsResult,
+    createAuditsFile,
+    `lighthouse-plugin-cssstats/audits/`,
+    "yellowLabs"
   );
-
-  await Promise.all(promiseArray);
-
-  global.audits.yellowCSSNb = files.length;
-  return files.length;
 };
 
 export default generateYellowLabsAudits;

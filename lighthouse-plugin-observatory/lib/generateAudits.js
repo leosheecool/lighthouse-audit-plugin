@@ -1,6 +1,8 @@
 import { Audit } from "lighthouse";
 import fs from "fs/promises";
 import getObservatoryScanResults from "./getObservatoryScanResults.js";
+import generateAuditFiles from "../../lib/generateAuditFiles.js";
+import ensureDirectoryExistence from "../../lib/file.js";
 
 const createAuditsFile = (rule, index) => {
   return `import { Audit } from 'lighthouse';\n\n
@@ -30,23 +32,12 @@ const createAuditsFile = (rule, index) => {
 };
 
 const generateAudits = async () => {
-  console.log("Running Observatory audits");
-  const res = await getObservatoryScanResults(process.argv[2]);
-
-  const files = res.map((rule, i) => createAuditsFile(rule, i));
-
-  const promiseArray = files.map(async (file, i) =>
-    fs.writeFile(
-      `lighthouse-plugin-observatory/audits/audits-observatory-${i}.js`,
-      file
-    )
+  return generateAuditFiles(
+    getObservatoryScanResults,
+    createAuditsFile,
+    `lighthouse-plugin-observatory/audits/`,
+    "observatory"
   );
-
-  await Promise.all(promiseArray);
-
-  global.audits.observatoryNb = files.length;
-
-  return files.length;
 };
 
 export default generateAudits;

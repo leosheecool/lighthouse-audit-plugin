@@ -6,7 +6,7 @@ export default {
     ...Array.from({ length: await generateYellowLabsAudits() })
       .fill(0)
       .map((_, i) => ({
-        path: `lighthouse-plugin-cssstats/audits/audits-yellowLabs-${i}.js`
+        path: `lighthouse-plugin-cssstats/audits/yellowLabs-audit-${i}.js`
       }))
   ],
 
@@ -15,7 +15,7 @@ export default {
     description: `Styles audit results`,
     auditRefs: [
       { id: "cssstats-results", weight: 1, group: "cssstats" },
-      ...Array.from({ length: global.audits.yellowCSSNb })
+      ...Array.from({ length: global.audits.yellowLabsTotal })
         .fill(0)
         .map((_, i) => ({
           id: `yellowLabs-result-${i}`,
