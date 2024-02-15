@@ -8,9 +8,7 @@ const getYellowLabsResult = async (url) => {
     ...results.rules[key]
   }));
   const formattedResults = rulesArray.filter((test) => test.bad);
-  console.log(formattedResults);
+  return rulesArray;
 };
-
-getYellowLabsResult("https://www.google.com");
 
 export default getYellowLabsResult;
