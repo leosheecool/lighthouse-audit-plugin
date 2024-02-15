@@ -15,9 +15,9 @@ class ObservatoryAudit extends Audit {
   static async audit() {
     const meta = observatoryScanMetaResponse;
 
-    const test = {
+    return {
       score: meta.score / 135,
-      displayValue: `Observatory score ${meta.score}`,
+      displayValue: `Observatory score: ${meta.score} / 100 (max 135)`,
       details: Audit.makeTableDetails(
         [
           { key: "score", itemType: "numeric", text: "Score" },
@@ -41,9 +41,6 @@ class ObservatoryAudit extends Audit {
         }
       )
     };
-
-    console.log(test);
-    return test;
   }
 }
 

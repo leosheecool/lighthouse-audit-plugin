@@ -66,11 +66,10 @@ const createAuditsFile = (rule, index) => {
 };
 
 const generateYellowLabsAudits = async () => {
+  console.log("Running YellowLabs audits");
   const res = await getYellowLabsResult(process.argv[2]);
 
   const files = res.map((rule, i) => createAuditsFile(rule, i));
-
-  console.log("res", res);
 
   const promiseArray = files.map(async (file, i) =>
     fs.writeFile(

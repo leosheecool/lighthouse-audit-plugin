@@ -30,6 +30,7 @@ const createAuditsFile = (rule, index) => {
 };
 
 const generateAudits = async () => {
+  console.log("Running Observatory audits");
   const res = await getObservatoryScanResults(process.argv[2]);
 
   const files = res.map((rule, i) => createAuditsFile(rule, i));
