@@ -2,6 +2,7 @@ import fs from "fs";
 import * as chromeLauncher from "chrome-launcher";
 import lighthouse from "lighthouse";
 import removeAllTempFiles from "./lib/removeAllTempFiles.js";
+import ensureDirectoryExistence from "./lib/file.js";
 
 if (process.argv.length < 2) {
   console.error("Usage: node index.js <url>");
@@ -10,6 +11,10 @@ if (process.argv.length < 2) {
 
 global.audits = {};
 const website = process.argv[2];
+const outputDir = `outputs/lhreport-${website
+  .replace("https://", "")
+  .replace("http://", "")
+  .replaceAll("/", "-")}/`;
 
 console.log("\nRunning Lighthouse on", website, "\n");
 
@@ -17,9 +22,12 @@ const chrome = await chromeLauncher.launch({ chromeFlags: ["--headless"] });
 
 const options = {
   logLevel: "info",
-  output: ["html", "json"],
-  // onlyCategories: ["performance", "accessibility", "best-practices", "seo"],
+  output: ["html", "json", "csv"],
   onlyCategories: [
+    "performance",
+    "accessibility",
+    "best-practices",
+    "seo",
     "lighthouse-plugin-observatory",
     "lighthouse-plugin-cssstats"
   ],
@@ -50,7 +58,12 @@ fs.writeFileSync(
   "lhreport_categories.json",
   JSON.stringify(runnerResult.lhr.categories)
 );
-fs.writeFileSync("lhreport_report.html", runnerResult.report[0]);
+
+ensureDirectoryExistence("outputs");
+ensureDirectoryExistence(outputDir);
+
+fs.writeFileSync(`${outputDir}/lhreport_report.html`, runnerResult.report[0]);
+fs.writeFileSync(`${outputDir}/lhreport_report.csv`, runnerResult.report[2]);
 
 removeAllTempFiles();
 
