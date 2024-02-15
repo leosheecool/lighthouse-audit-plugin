@@ -1,48 +1,49 @@
 import { Audit } from "lighthouse";
-import getObservatoryScanResults from "./lib/getObservatoryScanResults.js";
 
 class ObservatoryAudit extends Audit {
   static get meta() {
     return {
-      id: "observatory-results",
-      title: "Page's score by Mozilla Observatory",
-      failureTitle: "The page's score is low by Mozilla Observatory",
+      id: "observatory-overall-results",
+      title: `Page's score by Mozilla Observatory: ${observatoryScanMetaResponse.score}`,
+      failureTitle: `The page's score is low by Mozilla Observatory: ${observatoryScanMetaResponse.score}`,
       description:
-        "Overall score is an indicator and is not the real Observatory score.\n" +
-        `Check the "Observatory Score" to get the real score (Max 135).`,
-      requiredArtifacts: ["URL"]
+        "General informations about the scan run by Mozilla Observatory",
+      requiredArtifacts: []
     };
   }
 
-  static async audit(artifacts) {
-    const res = global.audits;
+  static async audit() {
+    const meta = observatoryScanMetaResponse;
 
-    let score = res.reduce((a, b) => a + (b.pass ? 1 : 0), 0) / res.length;
-    if (score > 1) score = 1;
-
-    const auditResult = res.map((test) => {
-      return {
-        id: test.name,
-        title: test.score_description,
-        description: `Result: ${test.result}`,
-        scoreModifier: test.score_modifier,
-        displayValue: test.result
-      };
-    });
-
-    return {
-      score,
-      displayValue: `Observatory score ${res.score}`,
+    const test = {
+      score: meta.score / 135,
+      displayValue: `Observatory score ${meta.score}`,
       details: Audit.makeTableDetails(
         [
-          { key: "id", itemType: "text", text: "Test Name" },
-          { key: "title", itemType: "text", text: "Description" },
-          { key: "scoreModifier", itemType: "numeric", text: "Score Modifier" },
-          { key: "displayValue", itemType: "text", text: "Result" }
+          { key: "score", itemType: "numeric", text: "Score" },
+          { key: "grade", itemType: "text", text: "Grade" },
+          { key: "tests_failed", itemType: "numeric", text: "Tests failed" },
+          { key: "tests_passed", itemType: "numeric", text: "Tests passed" },
+          {
+            key: "tests_quantity",
+            itemType: "numeric",
+            text: "Tests quantity"
+          },
+          { key: "end_time", itemType: "text", text: "End time" }
         ],
-        auditResult
+        {
+          score: meta.score,
+          grade: meta.grade,
+          tests_failed: meta.tests_failed,
+          tests_passed: meta.tests_passed,
+          tests_quantity: meta.tests_quantity,
+          end_time: meta.end_time
+        }
       )
     };
+
+    console.log(test);
+    return test;
   }
 }
 

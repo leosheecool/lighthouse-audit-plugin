@@ -11,17 +11,28 @@ export default {
   ],
 
   category: {
-    title: "CSS stats",
-    description: `CSS stats results`,
+    title: "Style stats",
+    description: `Styles audit results`,
     auditRefs: [
-      { id: "cssstats-results", weight: 1 },
+      { id: "cssstats-results", weight: 1, group: "cssstats" },
       ...Array.from({ length: global.audits.yellowCSSNb })
         .fill(0)
         .map((_, i) => ({
           id: `yellowLabs-result-${i}`,
-          weight: 1
+          weight: 1,
+          group: "yellowLabs"
         }))
-      // { id: "yellowLabs-results", weight: 1 }
     ]
+  },
+
+  groups: {
+    cssstats: {
+      title: "CSS Stats",
+      description: "These audits are related to CSS stats."
+    },
+    yellowLabs: {
+      title: "Yellow Labs",
+      description: "These audits are related to Yellow Labs."
+    }
   }
 };

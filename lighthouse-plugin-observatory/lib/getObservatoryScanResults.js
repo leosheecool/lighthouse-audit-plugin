@@ -14,6 +14,9 @@ const getObservatoryScanResults = async (url) => {
 
   const data = results.data;
 
+  global.observatoryScanMetaResponse = response.data;
+  console.log(response.data);
+
   return Object.keys(data).map((key) => data[key]);
 };
 

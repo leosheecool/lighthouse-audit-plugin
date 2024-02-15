@@ -11,21 +11,19 @@ const createAuditsFile = (rule, index) => {
     static get meta() {
       return {
         id: "observatory-result-${index}",
-        title: "${rule.name}'s score by Mozilla Observatory",
-        failureTitle: "The ${
-          rule.name
-        }'s rule score is low by Mozilla Observatory",
+        title: "${rule.name}",
+        failureTitle: "${rule.name} failed",
         description:
-          "Overall score is an indicator and is not the real Observatory score." +
-          "Check the 'Observatory Score' to get the real score (Max 135).",
-        requiredArtifacts: ["URL"]
+          \`${rule.score_description}\`,
+        requiredArtifacts: []
       };
     }
 
     static async audit() {
       return {
         score: ${rule.pass ? 1 : 0},
-        scoreDisplayMode: "binary"
+        scoreDisplayMode: "binary",
+        displayValue: "${rule.result.replaceAll("-", " ")}",
       };
     }
   };\n`;
