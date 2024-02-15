@@ -81,14 +81,14 @@ La section Mozilla's Observatory contient des informations sur la sécurité du 
 
 `Le score Mozilla est affiché dans le 1er test de la section.`
 
-![image](/doc/assets/readme-images/mozilla-audit-details.png)
+![image](/doc/assets/readme-images/Mozilla-audit-details.png)
 
 Dans l'exemple ci-dessus, le score global est de 71% mais le score Mozilla est de 65/100
 
 Dans le groupe "OBSERVATORY DETAILS" vous trouverez la liste des tests effectués et leur résultat.
 En cliquant sur un test, vous pourrez obtenir plus de détails sur la réussite ou de l'échec du test.
 
-![image](/doc/assets/readme-images/mozilla-audit-observatory-details.png)
+![image](/doc/assets/readme-images/Mozilla-audit-observatory-details.png)
 
 ### Style Stats
 
