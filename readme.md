@@ -52,6 +52,8 @@ Le rapport sera généré dans le dossier `outputs/lhreport-www.google.com/` à 
 
 ## Explication du rapport
 
+### General
+
 Le rapport généré est un rapport html qui contient les informations suivantes:
 
 - Performance
@@ -62,3 +64,59 @@ Le rapport généré est un rapport html qui contient les informations suivantes
 - Style Stats
 
 ![image](/doc/assets/readme-images/report-html-overview.png)
+
+Chaque section contient des informations sur les points à améliorer et des conseils pour les améliorer.
+
+![image](/doc/assets/readme-images/general-section-details.png)
+
+Les éléments rouges sont les points d'amélioration importants, les éléments jaunes sont les points d'amélioration souhaitables et les éléments verts sont les points positifs.
+
+Vous pouvez cliquer sur chaque éléments pour obtenir plus de détails: une description et certaines fois un tableau avec plus d'informations.
+
+![image](/doc/assets/readme-images/general-audit-details.png)
+
+### Mozilla's Observatory
+
+La section Mozilla's Observatory contient des informations sur la sécurité du site web analysé. Le score affiché dans le cercle est un indicateur général. Ce score `NE REPRESENTE PAS LE SCORE MOZILLA` mais le ratio de tests réussis par rapport au nombre total de tests effectués.
+
+`Le score Mozilla est affiché dans le 1er test de la section.`
+
+![image](/doc/assets/readme-images/mozilla-audit-details.png)
+
+Dans l'exemple ci-dessus, le score global est de 71% mais le score Mozilla est de 65/100
+
+Dans le groupe "OBSERVATORY DETAILS" vous trouverez la liste des tests effectués et leur résultat.
+En cliquant sur un test, vous pourrez obtenir plus de détails sur la réussite ou de l'échec du test.
+
+![image](/doc/assets/readme-images/mozilla-audit-observatory-details.png)
+
+### Style Stats
+
+La section Style Stats contient 2 groupes de données:
+
+- CSS Stats: qui contient des informations sur les styles CSS utilisés sur la page.
+- Yellow Labs: qui contient des informations plus poussées sur le style et la qualité générale du site analysé.
+
+#### CSS Stats
+
+En cliquant sur le test, vous pourrez voir un tableau regroupant les informations suivantes:
+
+- Unique colors
+- Unique background colors
+- Total declarations
+
+avec le résultat et une icône indiquant si le résultat est bon (vert), moyen (orange) ou mauvais (rouge).
+
+#### Yellow Labs
+
+Sur le boutton du test, vous pourrez voir le nom du test ainsi que le score du test.
+
+En cliquant sur le test, vous pourrez voir une description du test et pourquoi il est utile ainsi tableau regroupant les informations suivantes:
+
+- isOkThreshold: en dessous de cette valeur, le test est considéré comme bon `(1/1)`
+- isBadThreshold: au dessus de cette valeur, le test est considéré comme mauvais `(0.5/1)`
+- isAbnormalThreshold: au dessus de cette valeur, le test est considéré comme anormal/raté `(0/1)`
+
+Grâce au tableau, vous pourrez comparer le score et voir où il se situe par rapport aux seuils.
+
+![image](/doc/assets/readme-images/Style-stats-audit.png)
