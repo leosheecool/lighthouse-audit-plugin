@@ -36,23 +36,6 @@ const options = {
 };
 const runnerResult = await lighthouse(website, options);
 
-// const results = Object.keys(runnerResult.lhr.categories).map((key) => {
-//   const category = runnerResult.lhr.categories[key];
-//   return {
-//     name: category.title,
-//     score: category.score * 100,
-//     auditRefs: category.auditRefs.filter((audit) => audit.weight > 0)
-//   };
-// });
-
-// results.forEach((category) => {
-//   const auditDetails = category.auditRefs.map((audit) =>
-//     audit.relevantAudits
-//       .map((relevantAudit) => runnerResult.lhr.audits[relevantAudit])
-//       .filter((audit) => audit.score < 1)
-//   );
-// });
-
 fs.writeFileSync("lhreport_test.json", JSON.stringify(runnerResult.lhr.audits));
 fs.writeFileSync(
   "lhreport_categories.json",
