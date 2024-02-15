@@ -68,3 +68,5 @@ fs.writeFileSync(`${outputDir}/lhreport_report.csv`, runnerResult.report[2]);
 removeAllTempFiles();
 
 await chrome.kill();
+
+console.log("\nLighthouse report generated in", outputDir, "\n");
