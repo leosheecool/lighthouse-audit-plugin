@@ -9,6 +9,11 @@ if (process.argv.length < 2) {
   process.exit(1);
 }
 
+const LOADED_CUSTOM_PLUGINS = [
+  "lighthouse-plugin-observatory",
+  "lighthouse-plugin-cssstats"
+];
+
 global.audits = {};
 const website = process.argv[2];
 const outputDir = `outputs/lhreport-${website
@@ -28,11 +33,10 @@ const options = {
     "accessibility",
     "best-practices",
     "seo",
-    "lighthouse-plugin-observatory",
-    "lighthouse-plugin-cssstats"
+    ...LOADED_CUSTOM_PLUGINS
   ],
   port: chrome.port,
-  plugins: ["lighthouse-plugin-observatory", "lighthouse-plugin-cssstats"]
+  plugins: LOADED_CUSTOM_PLUGINS
 };
 const runnerResult = await lighthouse(website, options);
 
@@ -48,7 +52,7 @@ ensureDirectoryExistence(outputDir);
 fs.writeFileSync(`${outputDir}/lhreport_report.html`, runnerResult.report[0]);
 fs.writeFileSync(`${outputDir}/lhreport_report.csv`, runnerResult.report[2]);
 
-removeAllTempFiles();
+removeAllTempFiles(LOADED_CUSTOM_PLUGINS);
 
 await chrome.kill();
 

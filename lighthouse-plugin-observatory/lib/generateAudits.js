@@ -1,8 +1,5 @@
-import { Audit } from "lighthouse";
-import fs from "fs/promises";
 import getObservatoryScanResults from "./getObservatoryScanResults.js";
 import generateAuditFiles from "../../lib/generateAuditFiles.js";
-import ensureDirectoryExistence from "../../lib/file.js";
 
 const createAuditsFile = (rule, index) => {
   return `import { Audit } from 'lighthouse';\n\n

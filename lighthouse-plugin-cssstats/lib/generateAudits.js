@@ -1,7 +1,5 @@
-import fs from "fs/promises";
 import getYellowLabsResult from "./getYellowLabsResult.js";
 import generateAuditFiles from "../../lib/generateAuditFiles.js";
-import ensureDirectoryExistence from "../../lib/file.js";
 
 const getScore = (rule) => {
   if (
