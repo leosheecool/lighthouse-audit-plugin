@@ -30,7 +30,15 @@ Une fois l'installation terminée, vous pouvez exécuter le plugin en utilisant 
 node index.js "https://votre-url.com/"
 ```
 
+ou
+
+```bash
+node index.js "https://votre-url.com/" "desktop"
+```
+
 IMPORTANT: Remplacez `https://votre-url.com/` par l'URL que vous souhaitez auditer et ne mettez pas de sous dossiers (exemple `https://votre-url.com/fr-fr`).
+
+Le script sans le paramètre `"desktop"` utilisera le mode mobile par défaut. Si vous souhaitez utiliser le mode desktop, ajoutez le paramètre `"desktop"` à la fin de la commande.
 
 Le rapport sera généré dans le dossier `outputs` à la racine du projet.
 

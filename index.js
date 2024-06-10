@@ -9,6 +9,18 @@ if (process.argv.length < 2) {
   process.exit(1);
 }
 
+
+
+const formatDate = (date) => {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const year = date.getFullYear();
+  const hours = String(date.getHours()).padStart(2, '0');
+  const minutes = String(date.getMinutes()).padStart(2, '0');
+
+  return `${day}.${month}.${year}_${hours}h${minutes}`;
+}
+
 const LOADED_CUSTOM_PLUGINS = [
   "lighthouse-plugin-observatory",
   "lighthouse-plugin-cssstats"
@@ -16,6 +28,8 @@ const LOADED_CUSTOM_PLUGINS = [
 
 global.audits = {};
 const website = process.argv[2];
+const displayFormat = process.argv[3];
+
 const outputDir = `outputs/lhreport-${website
   .replace("https://", "")
   .replace("http://", "")
@@ -38,7 +52,22 @@ const options = {
   port: chrome.port,
   plugins: LOADED_CUSTOM_PLUGINS
 };
-const runnerResult = await lighthouse(website, options);
+
+const config = displayFormat === "desktop" ? {
+  extends: "lighthouse:default",
+  settings: {
+    formFactor: "desktop",
+    screenEmulation: {
+      mobile: false,
+      width: 1200,
+      height: 900,
+      deviceScaleFactor: 1,
+      disabled: false
+    },
+  }
+} : undefined;
+
+const runnerResult = await lighthouse(website, options, config);
 
 fs.writeFileSync("lhreport_test.json", JSON.stringify(runnerResult.lhr.audits));
 fs.writeFileSync(
@@ -49,8 +78,10 @@ fs.writeFileSync(
 ensureDirectoryExistence("outputs");
 ensureDirectoryExistence(outputDir);
 
-fs.writeFileSync(`${outputDir}/lhreport_report.html`, runnerResult.report[0]);
-fs.writeFileSync(`${outputDir}/lhreport_report.csv`, runnerResult.report[2]);
+const date = new Date();
+
+fs.writeFileSync(`${outputDir}/lhreport_report-${ formatDate(date) }.html`, runnerResult.report[0]);
+fs.writeFileSync(`${outputDir}/lhreport_report-${ formatDate(date) }.csv`, runnerResult.report[2]);
 
 removeAllTempFiles(LOADED_CUSTOM_PLUGINS);
 

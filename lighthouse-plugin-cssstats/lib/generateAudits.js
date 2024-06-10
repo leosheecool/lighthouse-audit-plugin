@@ -66,12 +66,16 @@ const createAuditsFile = (rule, index) => {
 };
 
 const generateYellowLabsAudits = async () => {
-  return generateAuditFiles(
-    getYellowLabsResult,
-    createAuditsFile,
-    `lighthouse-plugin-cssstats/audits/`,
-    "yellowLabs"
-  );
+  try {
+    return await generateAuditFiles(
+      getYellowLabsResult,
+      createAuditsFile,
+      `lighthouse-plugin-cssstats/audits/`,
+      "yellowLabs"
+    );
+  } catch {
+    return 0;
+  }
 };
 
 export default generateYellowLabsAudits;
